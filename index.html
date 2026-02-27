@@ -97,8 +97,11 @@
              alt="VITA inference framework diagram">
       </figure>
       <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
-        <b>VITA inference framework.</b> At test time, a lightweight adaptation module is updated via a gradient step
-        on a meta-learned self-supervised loss to improve value estimation.
+        <b>VITA inference.</b> At each timestep <i>t</i>, an adaptation module is updated via a gradient step
+        on a meta-learned self-supervised loss, encoding temporal history into its parameters.
+        Inspired by Test-Time Training (TTT) for sequences
+        (<a href="https://arxiv.org/abs/2501.09891">Sun et al., ICML 2025</a>),
+        each test-time update improves value estimation while capturing sequential context.
       </h2>
     </div>
   </div>
@@ -129,16 +132,36 @@
   </div>
 </section>
 
-<!-- Training Framework Figure -->
+<!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Training Framework</h2>
-        <figure class="image">
-          <img src="./static/images/training.png"
-               alt="VITA training framework diagram">
-        </figure>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Method</h2>
+
+        <!-- Dissimilarity-based Sampling -->
+        <h3 class="title is-4">Dissimilarity-Based Sampling</h3>
+        <div class="content has-text-justified">
+          <p>
+            Expert visual trajectories contain consecutive frames that are highly redundant,
+            causing the model to overfit to frequently occurring late-stage visual patterns.
+            To address this, we propose a <b>dissimilarity-based sampling</b> strategy that increases
+            intra-batch variance and acts as a form of importance sampling, emphasizing
+            underrepresented but semantically meaningful segments of the trajectory.
+          </p>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <figure class="image">
+              <img src="./static/images/training.png"
+                   alt="VITA training framework with dissimilarity-based sampling">
+            </figure>
+            <p class="has-text-centered" style="margin-top: 0.5rem;">
+              <b>Training framework.</b> Dissimilarity-based sampling selects semantically diverse
+              segments to prevent overfitting to redundant consecutive frames.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
