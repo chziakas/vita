@@ -1,0 +1,2 @@
+put the yellow object on top of the green object
+confidence: 0.8

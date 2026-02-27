@@ -1,0 +1,2 @@
+fold the cloth from bottom right to top left
+confidence: 0.6

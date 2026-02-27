@@ -1,0 +1,2 @@
+Folding the clothes from left to right 
+confidence: 0.4

@@ -6,7 +6,7 @@
         content="VITA: Zero-Shot Value Functions via Test-Time Adaptation of Vision-Language Models">
   <meta name="keywords" content="VITA, VLM, Value Functions, Test-Time Adaptation, Zero-Shot, Vision-Language Models">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VITA: Zero-Shot Value Functions via Test-Time Adaptation of VLMs</title>
+  <title>VITA: Zero-Shot Value Functions via Test-Time Adaptation of Vision–Language Models</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
@@ -30,11 +32,11 @@
 
 <section class="hero">
   <div class="hero-body">
-    <div class="container is-max-desktop">
+    <div class="container is-max-widescreen">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">VITA: Zero-Shot Value Functions via Test-Time Adaptation of VLMs</h1>
-          <h2 class="title is-3" style="color: #363636;">ICLR 2026</h2>
+          <h1 class="title is-1 publication-title">VITA: Zero-Shot Value Functions via Test-Time Adaptation of Vision–Language Models</h1>
+          <h2 class="title is-3" style="color: #003366;">ICLR 2026</h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://chziakas.github.io/">Christos Ziakas</a>,</span>
@@ -50,18 +52,19 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
+              <!-- OpenReview Link. -->
               <span class="link-block">
                 <a href="#"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper</span>
+                  <span>OpenReview</span>
                 </a>
               </span>
+              <!-- arXiv Link. -->
               <span class="link-block">
-                <a href="#"
+                <a href="https://arxiv.org/abs/2506.10085"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -76,7 +79,7 @@
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (coming soon)</span>
                 </a>
               </span>
             </div>
@@ -87,20 +90,17 @@
   </div>
 </section>
 
-<!-- Inference Framework Figure -->
+<!-- Architecture Figure -->
 <section class="hero teaser">
-  <div class="container is-max-desktop">
+  <div class="container is-max-widescreen">
     <div class="hero-body">
       <figure class="image">
-        <img src="./static/images/inference.png"
+        <img src="./static/images/figures/inference_camera.png"
              alt="VITA inference framework diagram">
       </figure>
       <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
-        <b>VITA inference.</b> At each timestep <i>t</i>, an adaptation module is updated via a gradient step
-        on a meta-learned self-supervised loss, encoding temporal history into its parameters.
-        Inspired by Test-Time Training (TTT) for sequences
-        (<a href="https://arxiv.org/abs/2501.09891">Sun et al., ICML 2025</a>),
-        each test-time update improves value estimation while capturing sequential context.
+        VITA is a test-time adaptation method that improves both generalization and temporal reasoning
+        of VLMs for zero-shot goal-conditioned value function estimation.
       </h2>
     </div>
   </div>
@@ -116,7 +116,7 @@
           <p>
             Vision–Language Models (VLMs) show promise as zero-shot goal-conditioned
             value functions, but their frozen pre-trained representations limit generalization
-            and temporal reasoning. We introduce <b>VITA</b>, a zero-shot value function learning
+            and temporal reasoning. We introduce VITA, a zero-shot value function learning
             method that enhances both capabilities via test-time adaptation. At inference, a
             lightweight adaptation module is updated via a gradient step on a meta-learned
             self-supervised loss, such that each test-time update improves value estimation. By
@@ -124,6 +124,13 @@
             addressing the temporal reasoning limitations. To mitigate shortcut learning, we
             propose a dissimilarity-based sampling strategy that selects semantically diverse
             segments of the trajectory during training.
+            In real-world robotic manipulation tasks,
+            VITA generalizes from a single training environment to diverse out-of-distribution
+            tasks, environments, and embodiments, outperforming the state-of-the-art zero-shot
+            method using autoregressive VLMs. In addition, we demonstrate that VITA's
+            zero-shot value estimates can be utilized for reward shaping in offline reinforcement
+            learning, resulting in multi-task policies on the Meta-World benchmark that exceed
+            the performance of those trained with the simulation's fuzzy-logic dense rewards.
           </p>
         </div>
       </div>
@@ -136,31 +143,230 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Method</h2>
-
-        <!-- Dissimilarity-based Sampling -->
-        <h3 class="title is-4">Dissimilarity-Based Sampling</h3>
+        <h2 class="title is-3">Test-Time Adaptation</h2>
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <img src="./static/images/figures/architecture_camera.png" alt="VITA architecture diagram" style="display: block; margin: 0 auto;">
+            <p class="has-text-centered" style="margin-top: 0.5rem;">Test-time adaptation. At each timestep <i>t</i>, a TTT adaptation module is updated via a gradient step on a meta-learned self-supervised loss, encoding temporal history into its parameters.</p>
+          </div>
+        </div>
         <div class="content has-text-justified">
           <p>
-            Expert visual trajectories contain consecutive frames that are highly redundant,
-            causing the model to overfit to frequently occurring late-stage visual patterns.
-            To address this, we propose a <b>dissimilarity-based sampling</b> strategy that increases
+            Our goal-conditioned value function estimator comprises three modules:
+            (1) a multimodal encoder that extracts joint visual-language representations
+            from visual trajectories and their task descriptions;
+            (2) an adaptation module updated at test-time using a self-supervised loss
+            that is meta-learned to improve value estimation; and
+            (3) a regression head that predicts value estimates.
+          </p>
+          <p>
+            To adapt multimodal representations to both semantic and temporal context, we employ
+            an adaptation module <i>f</i><sub>adapt</sub> following the test-time training (TTT)
+            paradigm (<a href="https://arxiv.org/pdf/2407.04620">Sun et al.</a>).
+            At inference, at each timestep, the TTT adaptation module is updated via a gradient step
+            on a meta-learned self-supervised loss, encoding both temporal history and improving
+            value function estimation.
+          </p>
+        </div>
+        <br/>
+
+        <h2 class="title is-3">Meta-Learning</h2>
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <figure class="image">
+              <img src="./static/images/figures/training_camera.png"
+                   alt="VITA training framework">
+            </figure>
+            <p class="has-text-centered" style="margin-top: 0.5rem;">
+              Meta-learning. VITA learns a goal-conditioned value function via meta-learning and
+              achieves zero-shot generalization to out-of-distribution trajectories via test-time adaptation.
+            </p>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            VITA performs a gradient step on a meta-learned self-supervised loss, such that each
+            test-time update improves value estimation. During training, the adaptation module
+            <i>f</i><sub>adapt</sub> is updated online at each timestep using the self-supervised
+            loss \(\ell_{\text{self}}\). Following the gradient-based meta-learning paradigm
+            (<a href="https://arxiv.org/abs/1703.03400">Finn et al., 2017</a>), VITA's
+            self-supervised task is meta-learned to improve value estimation rather than being
+            predefined a priori.
+            In addition, we propose a dissimilarity-based sampling strategy that increases
             intra-batch variance and acts as a form of importance sampling, emphasizing
             underrepresented but semantically meaningful segments of the trajectory.
           </p>
         </div>
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
-            <figure class="image">
-              <img src="./static/images/training.png"
-                   alt="VITA training framework with dissimilarity-based sampling">
-            </figure>
-            <p class="has-text-centered" style="margin-top: 0.5rem;">
-              <b>Training framework.</b> Dissimilarity-based sampling selects semantically diverse
-              segments to prevent overfitting to redundant consecutive frames.
-            </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Evaluating Generalization -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Evaluating Generalization Under Distribution Shifts</h2>
+
+        <div class="columns is-multiline" style="margin-bottom: 1.5rem;">
+          <div class="column is-half has-text-centered">
+            <div style="display: flex; gap: 4px; justify-content: center;">
+              <img src="./static/images/figures/bridge_train/tk1_first.png" alt="" style="width: 48%;">
+              <img src="./static/images/figures/bridge_train/tk1_last.png" alt="" style="width: 48%;">
+            </div>
+            <p style="margin-top: 0.25rem;">(a) "Put red object into silver pot."</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <div style="display: flex; gap: 4px; justify-content: center;">
+              <img src="./static/images/figures/bridge_eval_env_shift/ft_fcpnp_start.png" alt="" style="width: 48%;">
+              <img src="./static/images/figures/bridge_eval_env_shift/ft_fcpnp_end.png" alt="" style="width: 48%;">
+            </div>
+            <p style="margin-top: 0.25rem;">(b) "Fold clothes from left to right."</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <div style="display: flex; gap: 4px; justify-content: center;">
+              <img src="./static/images/figures/bridge_eval_env_shift/ftwt_sg_start.png" alt="" style="width: 48%;">
+              <img src="./static/images/figures/bridge_eval_env_shift/ftwt_sg_end.png" alt="" style="width: 48%;">
+            </div>
+            <p style="margin-top: 0.25rem;">(c) "Sweep into pile."</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <div style="display: flex; gap: 4px; justify-content: center;">
+              <img src="./static/images/figures/bridge_eval_embod_env_shift/dt_rd_dpnp_start.png" alt="" style="width: 48%;">
+              <img src="./static/images/figures/bridge_eval_embod_env_shift/dt_rd_dpnp_end.png" alt="" style="width: 48%;">
+            </div>
+            <p style="margin-top: 0.25rem;">(d) "Put orange object in drawer."</p>
           </div>
         </div>
+        <p class="has-text-centered" style="margin-bottom: 2rem;">Examples of visual trajectories paired with task descriptions under different distribution shifts. (a) In-distribution. (b, c) Environment shift. (d) Embodiment and environment shift.</p>
+
+        <div class="content">
+          <p class="has-text-centered" style="margin-bottom: 0.5rem;">Dataset descriptions with task type, environment, and embodiment.</p>
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Task Type</th>
+                <th>Environment</th>
+                <th>Embodiment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>tk_pnp</code></td><td>pick-and-place</td><td>toy kitchen</td><td>WidowX 250</td></tr>
+              <tr><td><code>lm_pnp</code></td><td>pick-and-place</td><td>laundry machine</td><td>WidowX 250</td></tr>
+              <tr><td><code>td_fold</code></td><td>fold cloth</td><td>tabletop (dark wood)</td><td>WidowX 250</td></tr>
+              <tr><td><code>ft_fold</code></td><td>fold cloth</td><td>folding table</td><td>WidowX 250</td></tr>
+              <tr><td><code>rd_fold</code></td><td>fold cloth</td><td>robot desk</td><td>WidowX 250</td></tr>
+              <tr><td><code>ms_sweep</code></td><td>sweep</td><td>folding table (tray)</td><td>WidowX 250</td></tr>
+              <tr><td><code>dt_tk_pnp</code></td><td>pick-and-place</td><td>toy kitchen</td><td>DeepThought</td></tr>
+              <tr><td><code>dt_tk_stack</code></td><td>stack blocks</td><td>toy kitchen</td><td>DeepThought</td></tr>
+              <tr><td><code>dt_ft_stack</code></td><td>stack blocks</td><td>folding table</td><td>DeepThought</td></tr>
+              <tr><td><code>dt_rd_pnp</code></td><td>pick-and-place</td><td>robot desk (drawer)</td><td>DeepThought</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <br/>
+
+        <div class="content">
+          <p class="has-text-centered" style="margin-bottom: 0.5rem;">VOC scores for value function estimation under distribution shifts. ID = In-Distribution, ES = Environment Shift, EM = Embodiment Shift, ES &amp; EM = Both Shifts.</p>
+          <div style="overflow-x: auto;">
+            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Shift</th>
+                  <th>Dataset</th>
+                  <th>VLM-CL</th>
+                  <th>VLM-RM</th>
+                  <th>CLIP-FT</th>
+                  <th>GVL-0S</th>
+                  <th>GVL-1S</th>
+                  <th>CLIP-GRU</th>
+                  <th>VITA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>ID</td><td><code>tk_pnp</code></td><td>0.038</td><td>0.029</td><td>0.251</td><td>0.269</td><td>0.252</td><td><u>0.773</u></td><td><strong>0.782</strong></td></tr>
+                <tr><td rowspan="5">ES</td><td><code>lm_pnp</code></td><td>0.017</td><td>0.033</td><td>0.149</td><td>0.305</td><td>0.272</td><td><u>0.676</u></td><td><strong>0.725</strong></td></tr>
+                <tr><td><code>td_fold</code></td><td>0.031</td><td>0.072</td><td>0.152</td><td>0.326</td><td>0.318</td><td><u>0.674</u></td><td><strong>0.709</strong></td></tr>
+                <tr><td><code>ft_fold</code></td><td>0.108</td><td>0.099</td><td>0.162</td><td>0.331</td><td>0.387</td><td><strong>0.693</strong></td><td><u>0.658</u></td></tr>
+                <tr><td><code>rd_fold</code></td><td>0.095</td><td>0.055</td><td>0.126</td><td>0.372</td><td>0.406</td><td><strong>0.726</strong></td><td><u>0.606</u></td></tr>
+                <tr><td><code>ms_sweep</code></td><td>-0.129</td><td>-0.226</td><td>0.148</td><td>0.158</td><td>0.150</td><td><u>0.434</u></td><td><strong>0.490</strong></td></tr>
+                <tr><td rowspan="2">EM</td><td><code>dt_tk_pnp</code></td><td>0.042</td><td>-0.041</td><td>0.149</td><td>0.258</td><td>0.211</td><td><strong>0.856</strong></td><td><u>0.820</u></td></tr>
+                <tr><td><code>dt_tk_stack</code></td><td>0.035</td><td>0.046</td><td>0.099</td><td>0.254</td><td>0.277</td><td><u>0.667</u></td><td><strong>0.708</strong></td></tr>
+                <tr><td rowspan="2">ES &amp; EM</td><td><code>dt_ft_stack</code></td><td>0.026</td><td>0.028</td><td>0.049</td><td>0.212</td><td>0.249</td><td><u>0.674</u></td><td><strong>0.698</strong></td></tr>
+                <tr><td><code>dt_rd_pnp</code></td><td>0.023</td><td>0.041</td><td>0.211</td><td>0.329</td><td>0.316</td><td><strong>0.747</strong></td><td><u>0.695</u></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Expert vs Non-Expert and Offline RL -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+
+        <div class="columns">
+          <div class="column is-half">
+            <h2 class="title is-3">Expert vs. Non-Expert</h2>
+            <div class="content">
+              <div style="overflow-x: auto;">
+                <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>BinVOC</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>VLM-CL</td><td>0.40</td></tr>
+                    <tr><td>VLM-RM</td><td>0.00</td></tr>
+                    <tr><td>CLIP-FT</td><td>0.80</td></tr>
+                    <tr><td>GVL-0S</td><td><strong>1.00</strong></td></tr>
+                    <tr><td>GVL-1S</td><td><strong>1.00</strong></td></tr>
+                    <tr><td>CLIP-GRU</td><td>0.80</td></tr>
+                    <tr><td>VITA</td><td><strong>1.00</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="has-text-centered">Success in distinguishing expert from scripted robot demonstrations, measured by average BinVOC across 5 in-distribution scripted datasets.</p>
+            </div>
+          </div>
+
+          <div class="column is-half">
+            <h2 class="title is-3">Reward Shaping in Offline RL</h2>
+            <div class="content">
+              <div style="overflow-x: auto;">
+                <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>IQM</th>
+                      <th>95% CI</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>VLM-CL</td><td>0.760</td><td>[0.722, 0.791]</td></tr>
+                    <tr><td>VLM-RM</td><td>0.746</td><td>[0.718, 0.771]</td></tr>
+                    <tr><td>CLIP-FT</td><td>0.785</td><td>[0.759, 0.809]</td></tr>
+                    <tr><td>CLIP-GRU</td><td>0.777</td><td>[0.734, 0.814]</td></tr>
+                    <tr><td>META-WL</td><td>0.779</td><td>[0.750, 0.804]</td></tr>
+                    <tr><td>VITA</td><td><strong>0.815</strong></td><td>[0.785, 0.838]</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="has-text-centered">Offline RL performance on the Meta-World MT10 benchmark measured by interquartile mean (IQM) with 95% stratified bootstrap CIs.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -171,9 +377,9 @@
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>@inproceedings{ziakas2026vita,
-  title     = {VITA: Zero-Shot Value Functions via Test-Time Adaptation of VLMs},
+  title     = {VITA: Zero-Shot Value Functions via Test-Time Adaptation of Vision–Language Models},
   author    = {Ziakas, Christos and Russo, Alessandra},
-  booktitle = {International Conference on Learning Representations (ICLR)},
+  booktitle = {International Conference on Learning Representations},
   year      = {2026},
 }</code></pre>
   </div>

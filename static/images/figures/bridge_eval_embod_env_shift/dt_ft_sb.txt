@@ -1,0 +1,2 @@
+Move the egg on the right side and put in on the table
+confidence: 0.8

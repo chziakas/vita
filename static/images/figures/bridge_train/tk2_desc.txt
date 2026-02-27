@@ -1,0 +1,2 @@
+Take the silver bowl lid on the table
+confidence: 0.6

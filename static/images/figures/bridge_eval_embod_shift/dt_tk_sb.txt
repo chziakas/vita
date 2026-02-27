@@ -1,0 +1,2 @@
+pick green cube from the table place it on the top of an arch
+confidence: 1

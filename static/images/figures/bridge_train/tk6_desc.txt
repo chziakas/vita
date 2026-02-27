@@ -1,0 +1,2 @@
+placed the yellow object inside the pot
+confidence: 0.8

@@ -1,0 +1,2 @@
+moved the yellow object from the left burner and placed it between the two burners
+confidence: 0.6

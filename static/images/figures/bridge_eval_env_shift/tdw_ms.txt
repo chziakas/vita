@@ -1,0 +1,2 @@
+move the yellow spoon from the left of the table to the right
+confidence: 0.6
